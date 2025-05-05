@@ -1,3 +1,4 @@
+/*
 import React, { useState } from 'react';
 import {
   View,
@@ -158,4 +159,10 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontFamily: 'sans-serif-medium',
   },
-}); 
+});
+*/
+
+// Temporary placeholder component
+export default function RegisterScreen() {
+  return null;
+} 
