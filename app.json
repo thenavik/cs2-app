@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "cs2-nades-app",
-    "slug": "cs2-nades-app",
+    "name": "smoky",
+    "slug": "smoky",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
