@@ -1,4 +1,3 @@
-/*
 import React, { useState } from 'react';
 import {
   View,
@@ -19,64 +18,61 @@ export default function RegisterScreen({ navigation }: any) {
   const [password, setPassword] = useState('');
 
   const handleRegister = () => {
-    // TODO: Implement registration logic later
-    // if (email && password) {
-    //   // Registration logic will be here
-    //   console.log('Registering with:', email, password);
-    // }
     navigation.navigate('Home');
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.keyboardView}
-      >
-        <View style={styles.content}>
-          <Text style={styles.title}>Create Account</Text>
+    <View style={styles.container}>
+      <SafeAreaView style={styles.safeArea}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.keyboardView}
+        >
+          <View style={styles.content}>
+            <Text style={styles.title}>Create Account</Text>
 
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              placeholderTextColor="#666"
-              value={email}
-              onChangeText={setEmail}
-              keyboardType="email-address"
-              autoCapitalize="none"
-            />
+            <View style={styles.inputContainer}>
+              <TextInput
+                style={styles.input}
+                placeholder="Email"
+                placeholderTextColor="#666"
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
+              />
 
-            <TextInput
-              style={styles.input}
-              placeholder="Password"
-              placeholderTextColor="#666"
-              value={password}
-              onChangeText={setPassword}
-              secureTextEntry
-            />
+              <TextInput
+                style={styles.input}
+                placeholder="Password"
+                placeholderTextColor="#666"
+                value={password}
+                onChangeText={setPassword}
+                secureTextEntry
+              />
+            </View>
+
+            <TouchableOpacity
+              style={styles.button}
+              onPress={handleRegister}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.buttonText}>Зарегистрироваться</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.loginLink}
+              onPress={() => navigation.navigate('Login')}
+              activeOpacity={0.7}
+            >
+              <Text style={styles.loginText}>
+                Уже есть аккаунт? <Text style={styles.loginTextBold}>Войти</Text>
+              </Text>
+            </TouchableOpacity>
           </View>
-
-          <TouchableOpacity
-            style={styles.button}
-            onPress={handleRegister}
-            activeOpacity={0.7}
-          >
-            <Text style={styles.buttonText}>Зарегистрироваться</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.loginLink}
-            onPress={() => navigation.navigate('Login')}
-            activeOpacity={0.7}
-          >
-            <Text style={styles.loginText}>
-              Уже есть аккаунт? <Text style={styles.loginTextBold}>Войти</Text>
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </View>
   );
 }
 
@@ -84,9 +80,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#1E1F23',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 24,
+  },
+  safeArea: {
+    flex: 1,
   },
   keyboardView: {
     flex: 1,
@@ -106,13 +102,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'sans-serif-medium',
     marginBottom: 12,
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 18,
-    color: '#B0B0B0',
-    fontFamily: 'sans-serif',
-    marginBottom: 32,
     textAlign: 'center',
   },
   inputContainer: {
@@ -159,10 +148,4 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     fontFamily: 'sans-serif-medium',
   },
-});
-*/
-
-// Temporary placeholder component
-export default function RegisterScreen() {
-  return null;
-} 
+}); 

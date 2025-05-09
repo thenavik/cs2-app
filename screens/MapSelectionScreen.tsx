@@ -2,6 +2,17 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, Dimensions, FlatList } from 'react-native';
 import MapCard from '../components/MapCard';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useSelection } from '../context/SelectionContext';
+import { Map } from '../data/videos';
+
+type RootStackParamList = {
+  Home: undefined;
+  MapSelection: undefined;
+  Selection: undefined;
+};
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const { width, height } = Dimensions.get('window');
 
@@ -20,51 +31,62 @@ const CARD_GAP = Math.min(width * 0.04, 16);
 
 export default function MapSelectionScreen() {
   const [selected, setSelected] = useState<string | null>(null);
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProp>();
+  const { setSelectedMap } = useSelection();
+
+  const handleMapSelect = (mapName: string) => {
+    setSelected(mapName);
+    setSelectedMap(mapName as Map);
+    navigation.navigate('Home');
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.overlay} />
-      <View style={styles.centeredContent}>
-        <Text style={styles.header}>Select Your Map</Text>
-        <FlatList
-          data={maps}
-          keyExtractor={item => item.name}
-          numColumns={2}
-          columnWrapperStyle={styles.row}
-          contentContainerStyle={styles.grid}
-          renderItem={({ item, index }) => {
-            const isLeft = index % 2 === 0;
-            return (
-              <View
-                style={{
-                  width: CARD_WIDTH,
-                  height: CARD_HEIGHT,
-                  marginBottom: CARD_GAP,
-                  marginRight: isLeft ? CARD_GAP / 2 : 0,
-                  marginLeft: !isLeft ? CARD_GAP / 2 : 0,
-                }}
-              >
-                <MapCard
-                  mapName={item.name}
-                  image={item.image}
-                  onPress={() => setSelected(item.name)}
-                  isSelected={selected === item.name}
-                />
-              </View>
-            );
-          }}
-          showsVerticalScrollIndicator={false}
-        />
-      </View>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <SafeAreaView style={styles.safeArea}>
+        <View style={styles.overlay} />
+        <View style={styles.centeredContent}>
+          <FlatList
+            data={maps}
+            keyExtractor={item => item.name}
+            numColumns={2}
+            columnWrapperStyle={styles.row}
+            contentContainerStyle={styles.grid}
+            renderItem={({ item, index }) => {
+              const isLeft = index % 2 === 0;
+              return (
+                <View
+                  style={{
+                    width: CARD_WIDTH,
+                    height: CARD_HEIGHT,
+                    marginBottom: CARD_GAP,
+                    marginRight: isLeft ? CARD_GAP / 2 : 0,
+                    marginLeft: !isLeft ? CARD_GAP / 2 : 0,
+                  }}
+                >
+                  <MapCard
+                    mapName={item.name}
+                    image={item.image}
+                    onPress={() => handleMapSelect(item.name)}
+                    isSelected={selected === item.name}
+                  />
+                </View>
+              );
+            }}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
+      </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#141518',
+    backgroundColor: '#1E1F23',
+  },
+  safeArea: {
+    flex: 1,
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,

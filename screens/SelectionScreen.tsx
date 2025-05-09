@@ -1,35 +1,40 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, SafeAreaView, Text, Image } from 'react-native';
 import SideCard from '../components/SideCard';
+import { useSelection } from '../context/SelectionContext';
 
 export default function SelectionScreen({ navigation }: any) {
   const [selected, setSelected] = useState<'CT' | 'T' | null>(null);
+  const { setSelectedSide } = useSelection();
 
   const handleSelect = (side: 'CT' | 'T') => {
     setSelected(side);
+    setSelectedSide(side);
     navigation.navigate('MapSelection');
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <Image source={require('../assets/selectScreen.png')} style={styles.backgroundImage} />
-      <View style={styles.overlay} />
-      <View style={styles.centeredContent}>
-        <Text style={styles.header}>Select Your Team to Start</Text>
-        <View style={styles.cardsWrapper}>
-          <SideCard
-            side="CT"
-            onPress={() => handleSelect('CT')}
-            isSelected={selected === 'CT'}
-          />
-          <SideCard
-            side="T"
-            onPress={() => handleSelect('T')}
-            isSelected={selected === 'T'}
-          />
+    <View style={styles.container}>
+      <SafeAreaView style={styles.safeArea}>
+        <Image source={require('../assets/selectScreen.png')} style={styles.backgroundImage} />
+        <View style={styles.overlay} />
+        <View style={styles.centeredContent}>
+          {/* <Text style={styles.header}>Select Your Team to Start</Text> */}
+          <View style={styles.cardsWrapper}>
+            <SideCard
+              side="CT"
+              onPress={() => handleSelect('CT')}
+              isSelected={selected === 'CT'}
+            />
+            <SideCard
+              side="T"
+              onPress={() => handleSelect('T')}
+              isSelected={selected === 'T'}
+            />
+          </View>
         </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </View>
   );
 }
 
@@ -37,6 +42,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#1E1F23',
+  },
+  safeArea: {
+    flex: 1,
   },
   backgroundImage: {
     ...StyleSheet.absoluteFillObject,
