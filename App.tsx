@@ -1,7 +1,7 @@
-import React from 'react';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import AppNavigator from './navigation/AppNavigator';
-import { SelectionProvider } from './context/SelectionContext';
+import React from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import AppNavigator from "./navigation/AppNavigator";
+import { SelectionProvider } from "./context/SelectionContext";
 
 export default function App() {
   return (
@@ -12,4 +12,3 @@ export default function App() {
     </GestureHandlerRootView>
   );
 }
-

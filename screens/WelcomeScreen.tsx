@@ -1,91 +1,102 @@
-import React from 'react';
-import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
-const { width, height } = Dimensions.get('window');
+import React from "react";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  Image,
+  ImageBackground,
+  StyleSheet,
+  StatusBar,
+} from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function WelcomeScreen({ navigation }: any) {
+  const insets = useSafeAreaInsets();
+
   return (
-    <SafeAreaView style={styles.container}>
-      <Image source={require('../assets/newback.png')} style={styles.backgroundImage} />
-      <View style={styles.overlayContent}>
-        <Image source={require('../assets/smokylogo-white.png')} style={styles.logoImage} />
-        
+    <ImageBackground
+      source={require("../assets/newback.png")}
+      style={styles.background}
+      resizeMode="cover"
+    >
+      <StatusBar
+        translucent
+        backgroundColor="transparent"
+        barStyle="light-content"
+      />
+
+      <View
+        style={[styles.overlayContent, { paddingBottom: insets.bottom || 24 }]}
+      >
+        <Image
+          source={require("../assets/smokylogo-white.png")}
+          style={styles.logoImage}
+        />
+
         <View style={styles.contentContainer}>
           <Text style={styles.title}>Learning everywhere & everytime</Text>
           <Text style={styles.subtitle}>
             Learn smokes with pleasure with us, wherever you are!
           </Text>
-          
+
           <TouchableOpacity
             style={styles.button}
-            onPress={() => navigation.navigate('Selection')}
+            onPress={() => navigation.navigate("Selection")}
           >
             <Text style={styles.buttonText}>GET STARTED</Text>
           </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  background: {
     flex: 1,
-    backgroundColor: '#1E1F23',
-  },
-  backgroundImage: {
-    ...StyleSheet.absoluteFillObject,
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-    zIndex: 0,
+    width: "100%",
+    height: "100%",
   },
   overlayContent: {
     flex: 1,
-    zIndex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingVertical: 40,
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingTop: 50,
   },
   logoImage: {
     width: 200,
     height: 200,
-    resizeMode: 'contain',
+    resizeMode: "contain",
   },
   contentContainer: {
-    width: '100%',
+    width: "100%",
     paddingHorizontal: 24,
-    alignItems: 'center',
+    alignItems: "center",
   },
   title: {
     fontSize: 32,
-    color: '#FFFFFF',
-    fontWeight: 'bold',
-    fontFamily: 'sans-serif-medium',
+    color: "#FFFFFF",
+    fontWeight: "bold",
+    textAlign: "center",
     marginBottom: 12,
-    textAlign: 'center',
   },
   subtitle: {
     fontSize: 18,
-    color: '#B0B0B0',
-    fontFamily: 'sans-serif',
+    color: "#B0B0B0",
+    textAlign: "center",
     marginBottom: 32,
-    textAlign: 'center',
   },
   button: {
-    backgroundColor: '#FFD100',
+    backgroundColor: "#FFD100",
     borderRadius: 15,
     paddingVertical: 14,
     paddingHorizontal: 48,
-    alignItems: 'center',
-    width: '100%',
+    alignItems: "center",
+    width: "100%",
   },
   buttonText: {
-    color: '#1E1F23',
+    color: "#1E1F23",
     fontSize: 18,
-    fontWeight: 'bold',
-    fontFamily: 'sans-serif-medium',
+    fontWeight: "bold",
   },
 });
-  
